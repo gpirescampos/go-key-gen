@@ -13,6 +13,10 @@ const (
 
 	// PublicKeyCompressedLength is the byte count of a compressed public key
 	PublicKeyCompressedLength = 33
+
+	PASSPHRASE = "passphrase"
+
+	MNEMOIC = "broom metal merge brown spy shop electric strike damage right pattern talk gain butter museum win run shove bridge explain receive dash thank sweet"
 )
 
 var (
