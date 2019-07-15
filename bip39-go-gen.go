@@ -5,7 +5,6 @@ import (
 	"crypto/sha512"
 	"fmt"
 
-	"github.com/tyler-smith/go-bip32"
 	"golang.org/x/crypto/pbkdf2"
 )
 
@@ -43,6 +42,26 @@ func NewMasterKey(seed []byte) (*Key, error) {
 	return key, nil
 }
 
+// PublicKey returns the public version of key or return a copy
+// The 'Neuter' function from the bip32 spec
+func (key *Key) PublicKey() *Key {
+	keyBytes := key.Key
+
+	if key.IsPrivate {
+		keyBytes = publicKeyForPrivateKey(keyBytes)
+	}
+
+	return &Key{
+		Version:     PublicWalletVersion,
+		Key:         keyBytes,
+		Depth:       key.Depth,
+		ChildNumber: key.ChildNumber,
+		FingerPrint: key.FingerPrint,
+		ChainCode:   key.ChainCode,
+		IsPrivate:   false,
+	}
+}
+
 // NewSeed creates a hashed seed output given a provided string and password.
 // No checking is performed to validate that the string provided is a valid mnemonic.
 func NewSeed(mnemonic string, password string) []byte {
@@ -55,14 +74,16 @@ func main() {
 	// fmt.Println("Entropy: ", entropy)
 	// mnemonic, _ := bip39.NewMnemonic(entropy)
 
-	// Generate a Bip32 HD wallet for the mnemonic and a user supplied password
-	seed := NewSeed("salon unhappy genre finish neutral piece indicate spray sword churn chunk above purchase salon village bless expand swift only hole rabbit razor true steel", "pass")
+	// To create a binary seed from the mnemonic, we use the PBKDF2 function with a mnemonic sentence (in UTF-8 NFKD) used as the password and the string "mnemonic" + passphrase
+	// (again in UTF-8 NFKD) used as the salt. The iteration count is set to 2048 and HMAC-SHA512 is used as the pseudo-random function.
+	// The length of the derived key is 512 bits (= 64 bytes).
+	seed := NewSeed(MENMONIC, PASSPHRASE)
 
-	masterKey, _ := bip32.NewMasterKey(seed)
+	masterKey, _ := NewMasterKey(seed)
 	publicKey := masterKey.PublicKey()
 
 	// Display mnemonic and keys
-	fmt.Println("Mnemonic: ", "salon unhappy genre finish neutral piece indicate spray sword churn chunk above purchase salon village bless expand swift only hole rabbit razor true steel")
+	fmt.Println("Mnemonic: ", MENMONIC)
 	fmt.Println("Master private key: ", masterKey)
 	fmt.Println("Master public key: ", publicKey)
 }

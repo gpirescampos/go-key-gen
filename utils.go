@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"math/big"
 )
 
 func validatePrivateKey(key []byte) error {
@@ -13,4 +14,25 @@ func validatePrivateKey(key []byte) error {
 	}
 
 	return nil
+}
+
+// Keys
+func publicKeyForPrivateKey(key []byte) []byte {
+	return compressPublicKey(curve.ScalarBaseMult(key))
+}
+
+func compressPublicKey(x *big.Int, y *big.Int) []byte {
+	var key bytes.Buffer
+
+	// Write header; 0x2 for even y value; 0x3 for odd
+	key.WriteByte(byte(0x2) + byte(y.Bit(0)))
+
+	// Write X coord; Pad the key so x is aligned with the LSB. Pad size is key length - header size (1) - xBytes size
+	xBytes := x.Bytes()
+	for i := 0; i < (PublicKeyCompressedLength - 1 - len(xBytes)); i++ {
+		key.WriteByte(0x0)
+	}
+	key.Write(xBytes)
+
+	return key.Bytes()
 }

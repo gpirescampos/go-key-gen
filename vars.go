@@ -32,12 +32,23 @@ var (
 
 	// ErrInvalidPublicKey is returned when a derived public key is invalid
 	ErrInvalidPublicKey = errors.New("Invalid public key")
-)
 
-var (
 	curve       = btcutil.Secp256k1()
 	curveParams = curve.Params()
 
 	// BitcoinBase58Encoding is the encoding used for bitcoin addresses
 	BitcoinBase58Encoding = basen.NewEncoding("123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz")
+)
+
+const (
+	// FirstHardenedChild is the index of the firxt "harded" child key as per the
+	// bip32 spec
+	FirstHardenedChild = uint32(0x80000000)
+
+	// PublicKeyCompressedLength is the byte count of a compressed public key
+	PublicKeyCompressedLength = 33
+
+	MENMONIC string = "salon unhappy genre finish neutral piece indicate spray sword churn chunk above purchase salon village bless expand swift only hole rabbit razor true steel"
+
+	PASSPHRASE string = "pass"
 )
