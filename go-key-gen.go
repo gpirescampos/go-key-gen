@@ -6,7 +6,6 @@ import (
 	"log"
 
 	ethhdwallet "github.com/miguelmota/go-ethereum-hdwallet"
-	"github.com/patcito/monero"
 	"github.com/patcito/monero/crypto"
 	"github.com/stellar/go/keypair"
 	bithdwallet "github.com/wemeetagain/go-hdwallet"
@@ -53,8 +52,8 @@ func GenerateMoneroWallet(seed []byte) {
 	var secret [32]byte
 	var view_secret [32]byte
 	var spend_secret [32]byte
-	crypto.SecretFromSeed(&secret, &seed32)
-	account, _ := monero.RecoverAccount(secret)
+	SecretFromSeed(&secret, &seed32)
+	account, _ := RecoverAccount(secret)
 	spend_secret = account.Secret()
 	crypto.ViewFromSpend(&view_secret, &spend_secret)
 	fmt.Printf("Monero Address: %s\n", account.Address().String())
