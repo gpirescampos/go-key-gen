@@ -47,25 +47,11 @@ func NewWallet(seed []byte) (*Wallet, error) {
 }
 
 // NewFromMnemonic returns a new wallet from a BIP-39 mnemonic.
-func NewFromMnemonic(mnemonic string, passphrase string) (*Wallet, error) {
-	if mnemonic == "" {
-		return nil, errors.New("mnemonic is required")
-	}
-
-	if !bip39.IsMnemonicValid(mnemonic) {
-		return nil, errors.New("mnemonic is invalid")
-	}
-
-	seed, err := NewSeedFromMnemonic(mnemonic, passphrase)
-	if err != nil {
-		return nil, err
-	}
-
+func NewFromMnemonic(seed []byte) (*Wallet, error) {
 	wallet, err := NewWallet(seed)
 	if err != nil {
 		return nil, err
 	}
-	wallet.mnemonic = mnemonic
 
 	return wallet, nil
 }

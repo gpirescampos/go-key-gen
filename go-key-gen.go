@@ -11,8 +11,8 @@ import (
 	bithdwallet "github.com/wemeetagain/go-hdwallet"
 )
 
-func GenerateEthereumWallet(menmoninc string, seed string) {
-	wallet, _ := NewFromMnemonic(menmoninc, seed)
+func GenerateEthereumWallet(seed []byte) {
+	wallet, _ := NewFromMnemonic(seed)
 	path := ethhdwallet.MustParseDerivationPath("m/44'/60'/0'/0/0")
 	account, err := wallet.Derive(path, false)
 	if err != nil {
@@ -70,6 +70,11 @@ func GenerateNeoWallet(seed []byte) {
 	fmt.Println("Neo Address: ", address)
 }
 
+func GenerateTezosWallet(seed []byte) {
+	wallet, _ := CreateWallet(seed)
+	fmt.Println("Tezos Address: ", wallet.Address)
+}
+
 func main() {
 	passphrase := "pass"
 	mnemonic, _ := NewMnemonic(256)
@@ -79,12 +84,13 @@ func main() {
 	fmt.Println("Passphrase: ", passphrase)
 	fmt.Println("Seed: ", hex.EncodeToString(seed))
 
-	GenerateEthereumWallet(mnemonic, hex.EncodeToString(seed))
+	GenerateEthereumWallet(seed)
 	GenerateBitcoinWallet(seed)
 	GenerateStellarWallet(seed)
 	GenerateTronWallet(seed)
 	GenerateMoneroWallet(seed)
 	GenerateIotaWallet()
 	GenerateNeoWallet(seed)
+	GenerateTezosWallet(seed)
 
 }
