@@ -6,6 +6,7 @@ import (
 	"log"
 
 	ethhdwallet "github.com/miguelmota/go-ethereum-hdwallet"
+	"github.com/stellar/go/keypair"
 	bithdwallet "github.com/wemeetagain/go-hdwallet"
 )
 
@@ -27,6 +28,18 @@ func GenerateBitcoinWallet(seed []byte) {
 	fmt.Println("Bitcoin Address: ", address)
 }
 
+func GenerateStellarWallet(seed []byte) {
+	// Generate a new randomly generated address
+	var seed32 [32]byte
+	copy(seed32[:], seed)
+	pair, err := keypair.FromRawSeed(seed32)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Stellar Seed:", pair.Seed())
+	fmt.Println("Stellar Address:", pair.Address())
+}
+
 func main() {
 	passphrase := "pass"
 	mnemonic, _ := NewMnemonic(256)
@@ -38,5 +51,6 @@ func main() {
 
 	GenerateEthereumWallet(mnemonic, hex.EncodeToString(seed))
 	GenerateBitcoinWallet(seed)
+	GenerateStellarWallet(seed)
 
 }
