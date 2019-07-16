@@ -56,7 +56,12 @@ func GenerateMoneroWallet(seed []byte) {
 	account, _ := RecoverAccount(secret)
 	spend_secret = account.Secret()
 	crypto.ViewFromSpend(&view_secret, &spend_secret)
-	fmt.Printf("Monero Address: %s\n", account.Address().String())
+	fmt.Println("Monero Address: ", account.Address().String())
+}
+
+func GenerateIotaWallet() {
+	iotaSeed, _ := generateRandomSeed()
+	fmt.Println("IOTA Seed: ", iotaSeed)
 }
 
 func main() {
@@ -73,5 +78,6 @@ func main() {
 	GenerateStellarWallet(seed)
 	GenerateTronWallet(seed)
 	GenerateMoneroWallet(seed)
+	GenerateIotaWallet()
 
 }
