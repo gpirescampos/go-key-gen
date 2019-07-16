@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/hex"
 	"fmt"
+	"strings"
 
 	"golang.org/x/crypto/sha3"
 
@@ -18,7 +19,7 @@ func PublicKeyBytesToEthereumAddress(publicKey []byte) string {
 	buf = hash.Sum(nil)
 	address := buf[12:]
 
-	return hex.EncodeToString(address)
+	return "0x" + strings.ToUpper(hex.EncodeToString(address))
 }
 
 func main() {
@@ -38,6 +39,6 @@ func main() {
 	fmt.Println("BIP32 Root Key: ", masterKey)
 	fmt.Println("Master public key: ", publicKey)
 
-	publicAddress := PublicKeyBytesToEthereumAddress(publicKey.Key)
-	fmt.Println("0x" + publicAddress) // 96216849c49358b10257cb55b28ea603c874b05e
+	ethPublicAddress := PublicKeyBytesToEthereumAddress(publicKey.Key)
+	fmt.Println(ethPublicAddress)
 }
