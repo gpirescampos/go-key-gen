@@ -64,6 +64,12 @@ func GenerateIotaWallet() {
 	fmt.Println("IOTA Seed: ", iotaSeed)
 }
 
+func GenerateNeoWallet(seed []byte) {
+	privKey, _ := NewPrivateKeyFromWIF(seed)
+	address, _ := privKey.PublicAddress()
+	fmt.Println("Neo Address: ", address)
+}
+
 func main() {
 	passphrase := "pass"
 	mnemonic, _ := NewMnemonic(256)
@@ -79,5 +85,6 @@ func main() {
 	GenerateTronWallet(seed)
 	GenerateMoneroWallet(seed)
 	GenerateIotaWallet()
+	GenerateNeoWallet(seed)
 
 }
