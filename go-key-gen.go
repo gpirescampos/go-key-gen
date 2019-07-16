@@ -40,6 +40,11 @@ func GenerateStellarWallet(seed []byte) {
 	fmt.Println("Stellar Address:", pair.Address())
 }
 
+func GenerateTronWallet(seed []byte) {
+	key := generateNewKey(seed)
+	addressFromKey(hex.EncodeToString(key.D.Bytes()))
+}
+
 func main() {
 	passphrase := "pass"
 	mnemonic, _ := NewMnemonic(256)
@@ -52,5 +57,6 @@ func main() {
 	GenerateEthereumWallet(mnemonic, hex.EncodeToString(seed))
 	GenerateBitcoinWallet(seed)
 	GenerateStellarWallet(seed)
+	GenerateTronWallet(seed)
 
 }
