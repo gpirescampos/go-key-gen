@@ -7,6 +7,7 @@ import (
 	"log"
 
 	"github.com/FiloSottile/zcash-mini/zcash"
+	"github.com/isarq/nem-sdk-go/model"
 	ethhdwallet "github.com/miguelmota/go-ethereum-hdwallet"
 	"github.com/patcito/monero/crypto"
 	"github.com/stellar/go/keypair"
@@ -100,6 +101,15 @@ func GenerateLiskWallet(seed []byte) {
 	fmt.Println("Lisk Address: ", addr)
 }
 
+func GenerateNEMWallet(seed []byte) {
+	keyPair, _ := model.FromSeed(seed)
+
+	publicKey := keyPair.PublicString()
+
+	address := model.ToAddress(publicKey, model.Data.Mainnet.ID)
+	fmt.Println("NEM Address: ", address)
+}
+
 func main() {
 	passphrase := "pass"
 	mnemonic, _ := NewMnemonic(256)
@@ -119,4 +129,5 @@ func main() {
 	GenerateTezosWallet(seed)
 	GenerateZCashWallet(seed)
 	GenerateLiskWallet(seed)
+	GenerateNEMWallet(seed)
 }
