@@ -6,7 +6,6 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 	"errors"
-	"fmt"
 	"math/big"
 
 	"github.com/CityOfZion/neo-go-sdk/utility"
@@ -23,7 +22,7 @@ type (
 
 // NewPrivateKeyFromWIF creates a PrivateKey struct using a WIF.
 func NewPrivateKeyFromWIF(seed []byte) (*PrivateKey, error) {
-	fmt.Println("Neo Address generation ")
+	// fmt.Println("Neo Address generation ")
 	return &PrivateKey{
 		bytes: seed[1:33],
 	}, nil

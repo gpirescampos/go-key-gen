@@ -1,10 +1,12 @@
 package main
 
 import (
+	"crypto/rand"
 	"encoding/hex"
 	"fmt"
 	"log"
 
+	"github.com/FiloSottile/zcash-mini/zcash"
 	ethhdwallet "github.com/miguelmota/go-ethereum-hdwallet"
 	"github.com/patcito/monero/crypto"
 	"github.com/stellar/go/keypair"
@@ -37,7 +39,7 @@ func GenerateStellarWallet(seed []byte) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("Stellar Seed:", pair.Seed())
+	// fmt.Println("Stellar Seed:", pair.Seed())
 	fmt.Println("Stellar Address:", pair.Address())
 }
 
@@ -75,6 +77,24 @@ func GenerateTezosWallet(seed []byte) {
 	fmt.Println("Tezos Address: ", wallet.Address)
 }
 
+func GenerateZCashWallet(seed []byte) {
+
+	rawKey := make([]byte, 32)
+	if _, err := rand.Read(rawKey); err != nil {
+		panic(err)
+	}
+	rawKey[0] &= 0x0f
+
+	rawAddr, err := zcash.KeyToAddress(rawKey)
+	if err != nil {
+		fatal(err)
+	}
+	addr := zcash.Base58Encode(rawAddr, zcash.ProdAddress)
+
+	fmt.Println("ZCash Shielded Address: ", addr)
+
+}
+
 func main() {
 	passphrase := "pass"
 	mnemonic, _ := NewMnemonic(256)
@@ -89,8 +109,9 @@ func main() {
 	GenerateStellarWallet(seed)
 	GenerateTronWallet(seed)
 	GenerateMoneroWallet(seed)
-	GenerateIotaWallet()
+	// GenerateIotaWallet()
 	GenerateNeoWallet(seed)
 	GenerateTezosWallet(seed)
+	GenerateZCashWallet(seed)
 
 }
