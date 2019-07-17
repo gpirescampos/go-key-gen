@@ -90,9 +90,14 @@ func GenerateZCashWallet(seed []byte) {
 		fatal(err)
 	}
 	addr := zcash.Base58Encode(rawAddr, zcash.ProdAddress)
-
 	fmt.Println("ZCash Shielded Address: ", addr)
+}
 
+func GenerateLiskWallet(seed []byte) {
+	prvKey := GetPrivateKeyFromSecret(hex.EncodeToString(seed))
+	pubKey := GetPublicKeyFromSecret(hex.EncodeToString(prvKey))
+	addr := GetAddressFromPublicKey(pubKey)
+	fmt.Println("Lisk Address: ", addr)
 }
 
 func main() {
@@ -113,5 +118,5 @@ func main() {
 	GenerateNeoWallet(seed)
 	GenerateTezosWallet(seed)
 	GenerateZCashWallet(seed)
-
+	GenerateLiskWallet(seed)
 }
