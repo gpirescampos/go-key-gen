@@ -9,5 +9,5 @@ import (
 func NewKeyPair() {
 	priKey, _ := ecc.NewRandomPrivateKey()
 	pubKey := priKey.PublicKey()
-	fmt.Println("EOS Public  Key: ", priKey, pubKey)
+	fmt.Println("EOS Public  Key: ", pubKey)
 }
