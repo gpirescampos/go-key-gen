@@ -4,7 +4,7 @@
 
 This package generates multiple key pairs and addresses for different blockchain wallets, from the same seed.
 
-List of wallet:
+List of wallets:
  * Bitcoin
  * Ethereum
  * EOS
@@ -27,7 +27,7 @@ List of wallet:
 
 ## Usage
 
-Please use to following snippet to use this package:
+Please use to following snippet to run this package:
 
 ```
 package main
