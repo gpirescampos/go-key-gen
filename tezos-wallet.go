@@ -1,4 +1,4 @@
-package main
+package gokeygen
 
 import (
 	"github.com/Messer4/base58check"

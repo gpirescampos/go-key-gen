@@ -1,4 +1,4 @@
-package main
+package gokeygen
 
 import (
 	"crypto/ecdsa"
