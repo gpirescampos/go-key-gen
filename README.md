@@ -53,7 +53,7 @@ func main() {
 	gokeygen.GenerateStellarWallet(seed)
 	gokeygen.GenerateTronWallet(seed)
 	gokeygen.GenerateMoneroWallet(seed)
-	// GenerateIotaWallet()
+	gokeygen.GenerateIotaWallet()
 	gokeygen.GenerateNeoWallet(seed)
 	gokeygen.GenerateTezosWallet(seed)
 	gokeygen.GenerateZCashWallet(seed)
