@@ -1,4 +1,4 @@
-package main
+package gokeygen
 
 import (
 	"crypto/rand"
@@ -112,27 +112,4 @@ func GenerateNEMWallet(seed []byte) {
 
 func GenerateEOSWallet(seed []byte) {
 	NewKeyPair()
-}
-
-func main() {
-	passphrase := "pass"
-	mnemonic, _ := NewMnemonic(256)
-	seed, _ := NewSeedFromMnemonic(mnemonic, passphrase)
-
-	fmt.Println("Menmonic: ", mnemonic)
-	fmt.Println("Passphrase: ", passphrase)
-	fmt.Println("Seed: ", hex.EncodeToString(seed))
-
-	GenerateEthereumWallet(seed)
-	GenerateBitcoinWallet(seed)
-	GenerateStellarWallet(seed)
-	GenerateTronWallet(seed)
-	GenerateMoneroWallet(seed)
-	// GenerateIotaWallet()
-	GenerateNeoWallet(seed)
-	GenerateTezosWallet(seed)
-	GenerateZCashWallet(seed)
-	GenerateLiskWallet(seed)
-	GenerateNEMWallet(seed)
-	GenerateEOSWallet(seed)
 }
