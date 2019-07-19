@@ -110,6 +110,10 @@ func GenerateNEMWallet(seed []byte) {
 	fmt.Println("NEM Address: ", address)
 }
 
+func GenerateEOSWallet(seed []byte) {
+	NewKeyPair()
+}
+
 func main() {
 	passphrase := "pass"
 	mnemonic, _ := NewMnemonic(256)
@@ -130,4 +134,5 @@ func main() {
 	GenerateZCashWallet(seed)
 	GenerateLiskWallet(seed)
 	GenerateNEMWallet(seed)
+	GenerateEOSWallet(seed)
 }
